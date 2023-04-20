@@ -8,7 +8,6 @@ export const route = async (event) => {
 };
 
 const routes = {
-    404: '../pages/404.html',
     '/': '../pages/main.html',
     '/search': '../pages/search.html',
     '/index.html': '../pages/main.html',
@@ -17,7 +16,7 @@ const routes = {
 const handleLocation = async () => {
     const path = window.location.pathname;
 
-    const route = routes[path] || routes[404];
+    const route = routes[path] || routes['/'];
     const html = await fetch(route).then((data) => data.text());
     refs.main_page.innerHTML = html;
 };
