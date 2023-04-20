@@ -1,5 +1,5 @@
 import refs from './refs.js';
-import { IdNotFoundError } from './errors.js';
+import { IdNotFoundError, NotFoundError } from './errors.js';
 import MoviesAPI from './api.service.js';
 const moviesAPI = new MoviesAPI();
 export const getIdFromParentLi = (e) => {
@@ -101,6 +101,9 @@ export const getMoviesByRequest = async (req) => {
     try {
         const { results } = await moviesAPI.getMoviesByRequest(req);
 
+        if (results.length < 1) {
+            throw new NotFoundError();
+        }
         moviesAPI.setMovies(results);
 
         const movies = moviesAPI.getMovies();
